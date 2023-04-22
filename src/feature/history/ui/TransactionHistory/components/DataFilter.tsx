@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import { Box, Button, Typography } from '@material-ui/core'
+import { Skeleton } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
@@ -12,12 +13,12 @@ import { useAppDispatch } from 'shared/hooks/store/useAppDispatch'
 const useStyles = makeStyles(theme => ({
   main: { marginBottom: theme.spacing(2) },
   btn: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(3),
     marginLeft: theme.spacing(2),
   },
 }))
 
-const DateRangePicker = () => {
+const DateRangePicker = ({ isLoading }: { isLoading?: boolean }) => {
   const classes = useStyles()
   const dispatch = useAppDispatch()
 
@@ -38,7 +39,11 @@ const DateRangePicker = () => {
       <Box display="flex" alignItems="center" className={classes.main}>
         <Box mr={2}>
           <Typography variant="subtitle1">Начало периода:</Typography>
-          <DatePicker value={startDate} onChange={handleStartDateChange} />
+          {isLoading ? (
+            <Skeleton variant="text" width={200} />
+          ) : (
+            <DatePicker value={startDate} onChange={handleStartDateChange} />
+          )}
         </Box>
         <Button
           variant="contained"

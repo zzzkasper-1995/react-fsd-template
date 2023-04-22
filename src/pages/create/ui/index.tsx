@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Button, TextField, MenuItem, FormControl, Select, InputLabel, makeStyles } from '@material-ui/core'
 import { Box } from '@mui/system'
 import { createTransaction } from 'enteties/transaction/methods/createTransaction'
-import { expenseCategories, incomeCategories, Transaction } from 'enteties/transaction/types'
+import { expenseCategories } from 'enteties/transaction/types'
 import { useNavigate } from 'react-router-dom'
 
 import { addTransactions } from 'feature/history/model/historySlice'

@@ -44,7 +44,7 @@ export const TransactionHistory = () => {
 
   return (
     <List>
-      <DateRangePicker />
+      <DateRangePicker isLoading={isLoading} />
       {historyList.map(transaction => (
         <TransactionItem key={transaction.id} transaction={transaction} onRemove={onRemove} />
       ))}
