@@ -5,13 +5,17 @@ import storage from 'redux-persist/lib/storage'
 
 import { historySlice, transactionsApi } from 'feature/history'
 
-const persistDefaultConfig = (key: string) => ({
+const persistDefaultConfig = (key: string, blacklist?: string[]) => ({
   key,
   storage,
+  blacklist,
 })
 
 const rootReducer = combineReducers({
-  [historySlice.name]: persistReducer(persistDefaultConfig(historySlice.name), historySlice.reducer),
+  [historySlice.name]: persistReducer(
+    persistDefaultConfig(historySlice.name, ['timeFilter']),
+    historySlice.reducer,
+  ),
   [transactionsApi.reducerPath]: transactionsApi.reducer,
 })
 

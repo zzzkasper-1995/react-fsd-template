@@ -4,10 +4,12 @@ import _ from 'lodash'
 
 interface HistoryState {
   list: Transaction[]
+  timeFilter: [Date] | undefined
 }
 
 const initialState: HistoryState = {
   list: [],
+  timeFilter: undefined,
 }
 
 const historySlice = createSlice({
@@ -20,8 +22,11 @@ const historySlice = createSlice({
     removeTransaction: (state, action: PayloadAction<string>) => {
       state.list = state.list.filter(item => item.id !== action.payload)
     },
+    setFilter: (state, action: PayloadAction<[Date]>) => {
+      state.timeFilter = action.payload
+    },
   },
 })
 
-export const { addTransactions, removeTransaction } = historySlice.actions
+export const { addTransactions, removeTransaction, setFilter } = historySlice.actions
 export default historySlice
