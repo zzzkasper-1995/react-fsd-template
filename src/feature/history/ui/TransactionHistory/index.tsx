@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect } from 'react'
 
 import { List, ListItem, ListItemText } from '@material-ui/core'
+import { Typography } from '@mui/material'
+import { Box } from '@mui/system'
 import { TransactionItem } from 'enteties/transaction/ui/Transaction'
 
 import { TransactionsResponse, useGetTransactionsQuery } from 'feature/history/api/request'
@@ -40,6 +42,16 @@ export const TransactionHistory = () => {
 
   if (isLoading) {
     return <LoadingList />
+  }
+
+  if (!historyList.length) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" height="100%">
+        <Typography variant="h5" color="textSecondary">
+          Нет данных
+        </Typography>
+      </Box>
+    )
   }
 
   return (

@@ -18,6 +18,10 @@ const ExpenseChart = () => {
     color: expenseCategories[category].color,
   }))
 
+  if (!Object.keys(expenseTotalsByCategory).length) {
+    return null
+  }
+
   return (
     <Box>
       <ResponsiveContainer width="100%" height={350}>
