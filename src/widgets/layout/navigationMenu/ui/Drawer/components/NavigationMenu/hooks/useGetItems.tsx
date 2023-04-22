@@ -26,7 +26,7 @@ export const useGetItems = (props: UseGetItemsProps): MenuItem[] => {
           {
             label: 'Создать',
             icon: ({ isSelected }) => (isSelected ? <OrderCreateIconSelected /> : <OrderCreateIcon />),
-            path: appRoutePaths.main,
+            path: appRoutePaths.create,
           },
           {
             label: 'История',

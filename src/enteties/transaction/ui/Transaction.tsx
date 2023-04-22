@@ -44,7 +44,9 @@ export const TransactionItem = ({
               <Skeleton width="100%" />
             ) : (
               <>
-                <Typography variant="caption">{transaction.date}</Typography>
+                {!!transaction.date && (
+                  <Typography variant="caption">{new Date(transaction.date).toDateString()}</Typography>
+                )}
                 <Typography variant="body2">{transaction.description}</Typography>
               </>
             )

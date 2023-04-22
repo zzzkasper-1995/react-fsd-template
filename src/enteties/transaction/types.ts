@@ -41,6 +41,13 @@ export const expenseCategories: { [key: string]: Category } = {
   },
 }
 
+export const incomeCategories: { [key: string]: Category } = {
+  zp: {
+    name: 'Зарплата',
+    color: '#7CB342',
+  },
+}
+
 export type Category = {
   name: string
   color: string
