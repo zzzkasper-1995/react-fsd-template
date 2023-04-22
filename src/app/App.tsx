@@ -1,11 +1,13 @@
 import React from 'react'
-import { BrowserRouter } from 'react-router-dom'
-import { Provider } from 'react-redux'
+
 import { ThemeProvider } from '@mui/material'
 import { SnackbarProvider } from 'notistack'
+import { Provider } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom'
 
 import { store } from 'app/store'
 import { CheckToken } from 'widgets/auth/checkToken'
+
 import { Router } from './Router'
 import { theme } from './theme'
 
@@ -15,7 +17,7 @@ export function App() {
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <SnackbarProvider>
-            <BrowserRouter basename="/main">
+            <BrowserRouter basename="/">
               <Router />
             </BrowserRouter>
           </SnackbarProvider>

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { Outlet } from 'react-router-dom'
+
 import { AppBar, Box, Drawer, Toolbar, useMediaQuery } from '@mui/material'
+import { Outlet } from 'react-router-dom'
+
 import { theme } from 'app/theme'
 
-import { useStyles } from './DefaultLayout.styles'
 import { Header } from '../../../widgets/layout/header'
 import { NavigationMenu } from '../../../widgets/layout/navigationMenu'
+import { useStyles } from './DefaultLayout.styles'
 
 export function DefaultLayout() {
   const classes = useStyles()

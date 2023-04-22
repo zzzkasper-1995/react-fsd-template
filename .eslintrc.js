@@ -40,8 +40,6 @@ module.exports = {
     'react/jsx-curly-brace-presence': ['warn'],
     'no-mixed-spaces-and-tabs': ['error'],
     'prettier/prettier': ['error'],
-    'react/jsx-uses-react': 'off',
-    'react/react-in-jsx-scope': 'off',
     'max-len': [
       'error',
       {
@@ -69,7 +67,6 @@ module.exports = {
           { pattern: 'pages/**', group: 'internal' },
           { pattern: 'widgets/**', group: 'internal' },
           { pattern: 'entities/**', group: 'internal' },
-          { pattern: 'store/**', group: 'internal' },
           { pattern: 'shared/**', group: 'internal' },
           { pattern: 'tests/**', group: 'internal' },
         ],

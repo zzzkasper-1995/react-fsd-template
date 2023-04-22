@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 
-import { appRoutes } from 'shared/navigation/routerPaths'
+import { appRoutePaths } from 'shared/navigation/routerPaths'
 import { ReactComponent as MainLogo } from 'assets/icons/mainLogo.svg'
 import useStyles from './Header.styles'
 
@@ -12,7 +12,7 @@ export function Header(props: HeaderProps) {
 
   const header = useMemo(
     () => (
-      <Link className={classes.logo} to={appRoutes.main()}>
+      <Link className={classes.logo} to={appRoutePaths.main}>
         <MainLogo />
       </Link>
     ),

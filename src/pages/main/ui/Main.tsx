@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { useStyles } from './Main.styles'
 
 export function Main() {
@@ -5,7 +7,7 @@ export function Main() {
 
   return (
     <div className={classes.page} data-testid="dealershipPage">
-      <span>DealershipPage</span>
+      <span>MainPage</span>
     </div>
   )
 }
