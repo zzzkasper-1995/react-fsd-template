@@ -1,1 +1,1 @@
-export { CheckToken } from './ui/CheckToken'
+export { useCheckToken } from './hooks/useCheckToken'

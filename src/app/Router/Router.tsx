@@ -1,21 +1,13 @@
 import React from 'react'
-import { Routes, Route, Navigate } from 'react-router-dom'
 
-import { NotFoundPage } from 'pages/notFound'
-import { Main } from 'pages/main'
-import { DefaultLayout } from 'pages/defaultLayout'
+import { useCheckToken } from 'widgets/auth/checkToken/hooks/useCheckToken'
 
-import { appRoutePaths, defaultRoute } from 'shared/navigation/routerPaths'
+import { AuthRouter } from './Routers/AuthRouter'
+import { MainRouter } from './Routers/MainRouter'
 
 export function Router(): JSX.Element {
-  return (
-    <Routes>
-      <Route path="*" element={<NotFoundPage />} />
+  const isAuth = useCheckToken()
 
-      <Route path={appRoutePaths.empty} element={<DefaultLayout />}>
-        <Route path={appRoutePaths.empty} element={<Navigate to={defaultRoute} replace />} />
-        <Route path={appRoutePaths.main} element={<Main />} />
-      </Route>
-    </Routes>
-  )
+  // return isAuth ? <MainRouter /> : <AuthRouter />
+  return <MainRouter />
 }

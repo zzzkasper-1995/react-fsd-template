@@ -1,42 +1,38 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
-import { AppBar, Box, Drawer, Toolbar, useMediaQuery } from '@mui/material'
+import { AppBar, Box, Toolbar } from '@mui/material'
 import { Outlet } from 'react-router-dom'
 
-import { theme } from 'app/theme'
+import { Header } from 'widgets/layout/header'
+import { Drawer } from 'widgets/layout/navigationMenu'
 
-import { Header } from '../../../widgets/layout/header'
-import { NavigationMenu } from '../../../widgets/layout/navigationMenu'
 import { useStyles } from './DefaultLayout.styles'
 
-export function DefaultLayout() {
-  const classes = useStyles()
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+type Props = {
+  isHeader?: boolean
+}
 
-  const [isNavigationMenuOpened, setNavigationMenuOpened] = useState(false)
-  useEffect(() => setNavigationMenuOpened(false), [isMobile])
+export function DefaultLayout(props: Props) {
+  const { isHeader = true } = props
+
+  const classes = useStyles()
 
   return (
     <Box className={classes.globalContainer}>
-      <AppBar className={classes.appBar} position={isMobile ? 'relative' : 'fixed'}>
-        <Toolbar>
-          <Header />
-        </Toolbar>
-      </AppBar>
+      <Drawer />
 
-      <Drawer
-        className={classes.navigationMenuDrawer}
-        open={isNavigationMenuOpened}
-        onClose={() => setNavigationMenuOpened(false)}
-        variant={isMobile ? 'temporary' : 'permanent'}
-      >
-        <Toolbar />
-        <NavigationMenu onClose={() => setNavigationMenuOpened(false)} />
-      </Drawer>
+      <Box display="grid" gridAutoRows="auto 1fr">
+        {isHeader && (
+          <AppBar className={classes.appBar} position="static">
+            <Toolbar>
+              <Header />
+            </Toolbar>
+          </AppBar>
+        )}
 
-      <Box className={classes.main} component="main">
-        {!isMobile && <Toolbar />}
-        <Outlet />
+        <Box className={classes.main} component="main">
+          <Outlet />
+        </Box>
       </Box>
     </Box>
   )

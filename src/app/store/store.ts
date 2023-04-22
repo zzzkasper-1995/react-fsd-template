@@ -1,11 +1,30 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { combineReducers, configureStore, Middleware } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/dist/query'
+import { persistReducer, persistStore } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+
+import { historySlice, transactionsApi } from 'feature/history'
+
+const persistDefaultConfig = (key: string) => ({
+  key,
+  storage,
+})
+
+const rootReducer = combineReducers({
+  [historySlice.name]: persistReducer(persistDefaultConfig(historySlice.name), historySlice.reducer),
+  [transactionsApi.reducerPath]: transactionsApi.reducer,
+})
+
+const middlewares: Middleware[] = [transactionsApi.middleware]
 
 export const store = configureStore({
-  reducer: {},
+  reducer: rootReducer,
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({ serializableCheck: false }).concat(...middlewares),
 })
 
 setupListeners(store.dispatch)
+persistStore(store)
 
 declare global {
   type RootState = ReturnType<typeof store.getState>

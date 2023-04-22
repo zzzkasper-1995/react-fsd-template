@@ -1,7 +1,7 @@
 import { createTheme, alpha } from '@mui/material'
 import { Theme } from '@mui/material/styles'
 
-import { BLACK, LIGHT_GRAY, PRIMARY_DARK, PRIMARY_MAIN, WHITE } from '../../shared/palette'
+import { BLACK, DARK_NORMAL, LIGHT_GRAY, PRIMARY_DARK, PRIMARY_MAIN, WHITE } from '../../shared/palette'
 
 // NOTE: Since makeStyles is now exported from @mui/styles package which does not know about
 // Theme in the core package. To fix this, you need to augment the DefaultTheme (empty object)
@@ -28,12 +28,12 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           '&:hover': {
-            backgroundColor: `${alpha('#000', 0.2)}`,
+            backgroundColor: `${alpha(PRIMARY_MAIN, 0.1)}`,
           },
           '&.Mui-selected': {
-            backgroundColor: `${alpha(BLACK, 0.15)}`,
+            backgroundColor: '#fff0',
             '&:hover': {
-              backgroundColor: `${alpha('#000', 0.2)}`,
+              backgroundColor: `${alpha(PRIMARY_MAIN, 0.1)}`,
             },
           },
         },
@@ -90,4 +90,44 @@ export const theme = createTheme({
       },
     },
   },
+  palette: {
+    custom: {
+      main: '#0585ff',
+      dark: '#003aff',
+    },
+    primary: {
+      main: PRIMARY_MAIN,
+    },
+    background: {
+      paper: '#F4F4F9',
+      default: '#fff',
+    },
+    text: {
+      primary: DARK_NORMAL,
+    },
+  },
 })
+
+/** Добавляем новые наборы цветов в палитру темы */
+declare module '@mui/material/styles' {
+  interface Palette {
+    custom: Palette['primary']
+  }
+
+  interface PaletteOptions {
+    custom: {
+      main: React.CSSProperties['color']
+      dark: React.CSSProperties['color']
+    }
+  }
+
+  interface PaletteColor {
+    main: string
+    dark: string
+  }
+
+  interface SimplePaletteColorOptions {
+    main: string
+    dark?: string
+  }
+}
