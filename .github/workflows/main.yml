@@ -1,0 +1,22 @@
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: node:16.10
+    steps:
+      - name: Use Node.js 16.10
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.10
+          
+      - name: Install dependencies
+        run: yarn
+      - name: Test
+        run: yarn test --ci --coverage --watchAll=false --collectCoverageFrom="./src/**" --collectCoverageFrom="!src/**/*.stories.tsx"
+        env:
+          CI: true
+      - name: Generate build
+        run: yarn build
