@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Transaction } from 'enteties/transaction'
+import _ from 'lodash'
 
 interface HistoryState {
   list: Transaction[]
@@ -14,7 +15,7 @@ const historySlice = createSlice({
   initialState,
   reducers: {
     addTransactions: (state, action: PayloadAction<Transaction[]>) => {
-      state.list = state.list.concat(action.payload)
+      state.list = _.uniq(state.list.concat(action.payload))
     },
     removeTransaction: (state, action: PayloadAction<string>) => {
       state.list = state.list.filter(item => item.id === action.payload)

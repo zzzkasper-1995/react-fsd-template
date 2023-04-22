@@ -12,7 +12,7 @@ export const getHistoryResponse: Transaction[] = [
     id: '2',
     date: new Date('2022-04-21').getTime(),
     category: 'Transportation',
-    amount: 25.0,
+    amount: -25.0,
     description: 'Filled up gas tank',
   },
   {

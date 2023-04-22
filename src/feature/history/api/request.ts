@@ -6,7 +6,7 @@ import { sleep } from 'shared/lib/sleep'
 
 import { getHistoryResponse } from './responsesMock'
 
-interface TransactionsResponse {
+export interface TransactionsResponse {
   data: Transaction[]
 }
 
@@ -22,6 +22,11 @@ export const transactionsApi = createApi({
         body,
       }),
       transformResponse: async (response: TransactionsResponse) => {
+        await sleep(1000)
+
+        return { data: getHistoryResponse }
+      },
+      transformErrorResponse: async (response: TransactionsResponse) => {
         await sleep(1000)
 
         return { data: getHistoryResponse }

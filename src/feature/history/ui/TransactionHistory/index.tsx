@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
 
 import { List, ListItem, ListItemText } from '@material-ui/core'
+import { TransactionItem } from 'enteties/transaction/ui/Transaction'
 
-import { useGetTransactionsQuery } from 'feature/history/api/request'
+import { TransactionsResponse, useGetTransactionsQuery } from 'feature/history/api/request'
 import { addTransactions } from 'feature/history/model/historySlice'
 import { slHistory } from 'feature/history/model/selectors'
 import { useAppDispatch } from 'shared/hooks/store/useAppDispatch'
@@ -15,19 +16,24 @@ export const TransactionHistory = () => {
 
   const historyList = useAppSelector(slHistory)
 
-  const { data: list, error, isLoading } = useGetTransactionsQuery({})
+  //TODO ручки не работают, прокидываем моки в error. Потом убрать
+  const {
+    // data: list,
+    error,
+    isLoading,
+  } = useGetTransactionsQuery({})
+  const list = error as TransactionsResponse
 
   useEffect(() => {
-    const fetch = async () => {
-      try {
-        dispatch(addTransactions(list?.data ?? []))
-      } catch (err) {
-        console.log('getUser.err', err)
-      }
+    console.log('useHook', list)
+    try {
+      dispatch(addTransactions(list?.data ?? []))
+    } catch (err) {
+      console.log('getUser.err', err)
     }
-
-    fetch()
   }, [dispatch, list])
+
+  console.log('!!!!!historyList', historyList, list)
 
   if (isLoading) {
     return <LoadingList />
@@ -36,10 +42,7 @@ export const TransactionHistory = () => {
   return (
     <List>
       {historyList.map(transaction => (
-        <ListItem key={transaction.id}>
-          <ListItemText primary={transaction.date} secondary={transaction.description} />
-          <ListItemText primary={transaction.category} secondary={transaction.amount} />
-        </ListItem>
+        <TransactionItem key={transaction.id} transaction={transaction} />
       ))}
     </List>
   )

@@ -1,6 +1,6 @@
 export type Transaction = {
   id: string
-  date: number
+  date: undefined | number
   category: string
   amount: number
   description: string

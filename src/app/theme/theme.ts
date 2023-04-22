@@ -94,6 +94,8 @@ export const theme = createTheme({
     custom: {
       main: '#0585ff',
       dark: '#003aff',
+      income: '#66cc99',
+      expense: '#f66',
     },
     primary: {
       main: PRIMARY_MAIN,
@@ -118,16 +120,22 @@ declare module '@mui/material/styles' {
     custom: {
       main: React.CSSProperties['color']
       dark: React.CSSProperties['color']
+      income: React.CSSProperties['color']
+      expense: React.CSSProperties['color']
     }
   }
 
   interface PaletteColor {
     main: string
     dark: string
+    income: string
+    expense: string
   }
 
   interface SimplePaletteColorOptions {
     main: string
     dark?: string
+    income?: string
+    expense?: string
   }
 }
