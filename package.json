@@ -36,6 +36,7 @@
     "react-redux": "8.0.5",
     "react-router-dom": "6.4.4",
     "react-scripts": "5.0.1",
+    "recharts": "^2.5.0",
     "redux-persist": "^6.0.0",
     "redux-state-sync": "3.1.4",
     "snakecase-keys": "5.4.4",

@@ -15,7 +15,7 @@ const historySlice = createSlice({
   initialState,
   reducers: {
     addTransactions: (state, action: PayloadAction<Transaction[]>) => {
-      state.list = _.uniq(state.list.concat(action.payload))
+      state.list = _.uniqBy(state.list.concat(action.payload), 'id')
     },
     removeTransaction: (state, action: PayloadAction<string>) => {
       state.list = state.list.filter(item => item.id === action.payload)
