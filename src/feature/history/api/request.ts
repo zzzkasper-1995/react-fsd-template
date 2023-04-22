@@ -10,6 +10,10 @@ export interface TransactionsResponse {
   data: Transaction[]
 }
 
+export interface AddResponse {
+  data: {}
+}
+
 export const transactionsApi = createApi({
   reducerPath: 'transactionsApi',
   baseQuery: defaultBaseQuery({
