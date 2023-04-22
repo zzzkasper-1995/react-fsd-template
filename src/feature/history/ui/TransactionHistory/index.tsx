@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 
 import { List, ListItem, ListItemText } from '@material-ui/core'
 import { TransactionItem } from 'enteties/transaction/ui/Transaction'
 
 import { TransactionsResponse, useGetTransactionsQuery } from 'feature/history/api/request'
-import { addTransactions } from 'feature/history/model/historySlice'
+import { addTransactions, removeTransaction } from 'feature/history/model/historySlice'
 import { slHistory } from 'feature/history/model/selectors'
 import { useAppDispatch } from 'shared/hooks/store/useAppDispatch'
 import { useAppSelector } from 'shared/hooks/store/useAppSelector'
@@ -25,15 +25,17 @@ export const TransactionHistory = () => {
   const list = error as TransactionsResponse
 
   useEffect(() => {
-    console.log('useHook', list)
     try {
       dispatch(addTransactions(list?.data ?? []))
-    } catch (err) {
-      console.log('getUser.err', err)
-    }
+    } catch (err) {}
   }, [dispatch, list])
 
-  console.log('!!!!!historyList', historyList, list)
+  const onRemove = useCallback(
+    (id: string) => {
+      dispatch(removeTransaction(id))
+    },
+    [dispatch],
+  )
 
   if (isLoading) {
     return <LoadingList />
@@ -42,7 +44,7 @@ export const TransactionHistory = () => {
   return (
     <List>
       {historyList.map(transaction => (
-        <TransactionItem key={transaction.id} transaction={transaction} />
+        <TransactionItem key={transaction.id} transaction={transaction} onRemove={onRemove} />
       ))}
     </List>
   )

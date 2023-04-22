@@ -3,7 +3,8 @@ import React from 'react'
 import { Paper, Typography, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
-import { Skeleton } from '@mui/material'
+import DeleteIcon from '@mui/icons-material/Delete'
+import { IconButton, Skeleton } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 
 import { Transaction } from '../types'
@@ -11,9 +12,11 @@ import { Transaction } from '../types'
 export const TransactionItem = ({
   transaction,
   isLoading = false,
+  onRemove,
 }: {
   transaction: Transaction
   isLoading?: boolean
+  onRemove?: (id: string) => void
 }) => {
   const classes = useStyles()
 
@@ -27,7 +30,7 @@ export const TransactionItem = ({
       style={isLoading ? { backgroundColor: 'white' } : undefined}
     >
       <ListItem className={classes.listItem}>
-        <ListItemIcon className={classes.listItemIcon}>{isLoading ? <Skeleton /> : icon}</ListItemIcon>
+        {icon}
         <ListItemText
           primary={
             isLoading ? (
@@ -54,11 +57,25 @@ export const TransactionItem = ({
             isLoading ? (
               <Skeleton />
             ) : (
-              <Typography variant="caption">{isExpense ? 'Expense' : 'Income'}</Typography>
+              <Typography variant="caption">{isExpense ? 'Расход' : 'Доход'}</Typography>
             )
           }
           style={{ alignItems: 'flex-end' }}
         />
+
+        <ListItemIcon className={classes.listItemIcon}>
+          {isLoading ? (
+            <Skeleton />
+          ) : (
+            <>
+              {onRemove && (
+                <IconButton onClick={() => onRemove(transaction.id)}>
+                  <DeleteIcon />
+                </IconButton>
+              )}
+            </>
+          )}
+        </ListItemIcon>
       </ListItem>
     </Paper>
   )
@@ -67,11 +84,11 @@ export const TransactionItem = ({
 const useStyles = makeStyles(theme => ({
   income: {
     backgroundColor: theme.palette.custom.income,
-    width: 300,
+    width: 350,
   },
   expense: {
     backgroundColor: theme.palette.custom.expense,
-    width: 300,
+    width: 350,
   },
   listItem: {
     padding: theme.spacing(2),
@@ -82,7 +99,7 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.primary,
   },
   paper: {
-    width: 300,
+    width: 350,
   },
   listItemIcon: {
     minWidth: 36,

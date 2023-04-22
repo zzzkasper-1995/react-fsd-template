@@ -18,7 +18,7 @@ const historySlice = createSlice({
       state.list = _.uniqBy(state.list.concat(action.payload), 'id')
     },
     removeTransaction: (state, action: PayloadAction<string>) => {
-      state.list = state.list.filter(item => item.id === action.payload)
+      state.list = state.list.filter(item => item.id !== action.payload)
     },
   },
 })
